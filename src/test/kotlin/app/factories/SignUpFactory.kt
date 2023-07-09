@@ -14,7 +14,6 @@ import app.external.network.responses.authentication.SignUpResponse
 import app.external.network.responses.authentication.SignUpUserResponse
 import app.external.network.responses.authentication.SignUpUserMetadataResponse
 
-
 class SignUpFactory {
     val validParams = SignUpParameter(
         NameValue("Gabriel Ramos"),
