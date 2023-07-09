@@ -91,17 +91,14 @@ class HttpAdapter(private val environment: Environment) {
             }
         }
     }
-
-    companion object {
-        operator fun invoke(): HttpAdapter = HttpAdapter()
-    }
-
 }
 
 suspend inline fun <reified F, reified S> HttpClient.request(
     block: HttpRequestBuilder.() -> Unit,
 ): Either<Pair<Int, F>, Pair<Int, S>> {
     val response = request { block() }
+
+    close()
 
     return when (val status = response.status) {
         HttpStatusCode.BadRequest -> failure(status.value, response)

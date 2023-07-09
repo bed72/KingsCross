@@ -17,8 +17,10 @@ import app.external.network.adapters.JsonAdapter
 import app.framework.views.View
 import app.framework.views.Status
 import app.framework.views.message.MessageOutView
+import app.framework.controllers.configureControllers
 
 fun Application.configureServer() {
+
     install(ContentNegotiation) {
         json(JsonAdapter.configure)
     }
@@ -29,6 +31,8 @@ fun Application.configureServer() {
         configureStatus(HttpStatusCode.InternalServerError)
         configureStatus(HttpStatusCode.UnprocessableEntity)
     }
+
+    configureControllers()
 
 }
 
