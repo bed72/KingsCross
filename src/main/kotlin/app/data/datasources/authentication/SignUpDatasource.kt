@@ -27,14 +27,11 @@ class SignUpDatasourceImpl(
     private val adapter: HttpAdapter,
     private val mapper: SignUpDatasourceMapper
 ) : SignUpDatasource {
-    override suspend fun invoke(parameters: SignUpParameter): SignUpType {
-        val response = adapter.client.request<MessageResponse, SignUpResponse> {
+    override suspend fun invoke(parameters: SignUpParameter): SignUpType =
+        adapter.client.request<MessageResponse, SignUpResponse> {
             method = HttpMethod.Post
             url(ApiPath.SIGN_UP.value)
             setBody(mapper(parameters))
             contentType(ContentType.Application.Json)
         }
-
-        return response
-    }
 }

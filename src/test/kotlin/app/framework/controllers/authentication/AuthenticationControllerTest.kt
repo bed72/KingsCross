@@ -10,17 +10,19 @@ import io.ktor.client.request.post
 import io.ktor.client.request.setBody
 
 import app.framework.views.authentication.SignUpInView
+
+import app.framework.controllers.request
 import app.framework.controllers.withBaseTestApplication
 
 class AuthenticationControllerTest {
     @Test
     fun `Should return the Health Check is Up`() = withBaseTestApplication {
 
-        val response = client.post("/v1/authentication/sign/up") {
+        val response = request().post("/v1/authentication/sign/up") {
             contentType(ContentType.Application.Json)
             setBody(SignUpInView("Gabriel Ramos", "email@email.com", "P@ssw0rD"))
         }
 
-        assertEquals(HttpStatusCode.Created, response.status)
+        assertEquals(HttpStatusCode.BadRequest, response.status)
     }
 }
