@@ -3,17 +3,13 @@ package app.framework.views.authentication
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
-import app.domain.values.NameValue
 import app.domain.values.EmailValue
 import app.domain.values.PasswordValue
 
-import app.domain.parameters.authentication.SignUpParameter
+import app.domain.parameters.authentication.SignInParameter
 
 @Serializable
-data class SignUpInView(
-    @SerialName("name")
-    val name: String,
-
+data class SignInInView(
     @SerialName("email")
     val email: String,
 
@@ -21,5 +17,5 @@ data class SignUpInView(
     val password: String,
 )
 
-fun SignUpInView.toParameter() =
-    SignUpParameter(NameValue(name), EmailValue(email), PasswordValue(password))
+fun SignInInView.toParameter() =
+    SignInParameter(EmailValue(email), PasswordValue(password))

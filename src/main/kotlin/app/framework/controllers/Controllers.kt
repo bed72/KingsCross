@@ -10,7 +10,8 @@ import io.ktor.server.plugins.swagger.swaggerUI
 import io.ktor.server.plugins.requestvalidation.RequestValidation
 
 import app.framework.controllers.health.healthCheckController
-import app.framework.controllers.authentication.authenticationController
+import app.framework.controllers.authentication.signUpController
+import app.framework.controllers.authentication.signInController
 
 fun Application.configureControllers() {
     install(RequestValidation) {
@@ -25,7 +26,8 @@ fun Application.configureControllers() {
             }
 
             route("/v1/authentication") {
-                authenticationController(this@install)
+                signUpController(this@install)
+                signInController(this@install)
             }
         }
     }

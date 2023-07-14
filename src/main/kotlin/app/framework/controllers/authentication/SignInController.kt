@@ -10,31 +10,31 @@ import io.ktor.server.application.call
 import io.ktor.server.plugins.requestvalidation.ValidationResult
 import io.ktor.server.plugins.requestvalidation.RequestValidationConfig
 
-import app.domain.usecases.authentication.SignUpUseCase
+import app.domain.usecases.authentication.SignInUseCase
 
 import app.framework.server.response
 
 import app.framework.views.authentication.toParameter
-import app.framework.views.authentication.SignUpInView
+import app.framework.views.authentication.SignInInView
 
 import app.framework.mappers.message.MessageViewMapper
-import app.framework.mappers.authentication.SignUpViewMapper
+import app.framework.mappers.authentication.AuthenticationViewMapper
 
-fun Route.authenticationController(configure: RequestValidationConfig) {
+fun Route.signInController(configure: RequestValidationConfig) {
 
-    val useCase by inject<SignUpUseCase>()
-    val success by inject<SignUpViewMapper>()
+    val useCase by inject<SignInUseCase>()
     val failure by inject<MessageViewMapper>()
+    val success by inject<AuthenticationViewMapper>()
 
-    configure.validate<SignUpInView> { body ->
+    configure.validate<SignInInView> { body ->
         body.toParameter().isValid().fold(
             { ValidationResult.Invalid(it) },
             { ValidationResult.Valid }
         )
     }
 
-    post("/sign/up") {
-        val body = call.receive<SignUpInView>()
+    post("/sign/in") {
+        val body = call.receive<SignInInView>()
         val parameters = body.toParameter()
 
         useCase(parameters).collect { response ->

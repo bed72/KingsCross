@@ -4,7 +4,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class SignUpResponse(
+data class AuthenticationResponse(
     @SerialName("expires_in")
     val expireIn: Int,
 
@@ -15,20 +15,20 @@ data class SignUpResponse(
     val refreshToken: String,
 
     @SerialName("user")
-    val user: SignUpUserResponse,
+    val user: AuthenticationUserResponse,
 )
 
 @Serializable
-data class SignUpUserResponse(
+data class AuthenticationUserResponse(
     @SerialName("email")
     val email: String,
 
     @SerialName("user_metadata")
-    val userMetadata: SignUpUserMetadataResponse,
+    val userMetadata: AuthenticationMetadataResponse,
 )
 
 @Serializable
-data class SignUpUserMetadataResponse(
+data class AuthenticationMetadataResponse(
     @SerialName("name")
     val name: String,
 )

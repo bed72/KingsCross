@@ -4,9 +4,9 @@ import org.koin.dsl.bind
 import org.koin.dsl.module
 import org.koin.core.module.dsl.factoryOf
 
-import app.data.datasources.authentication.SignUpDatasource
-import app.data.datasources.authentication.SignUpDatasourceImpl
+import app.data.datasources.authentication.AuthenticationDatasource
+import app.data.datasources.authentication.AuthenticationDatasourceImpl
 
 val datasourceModule = module {
-    factoryOf(::SignUpDatasourceImpl) bind SignUpDatasource::class
+    factoryOf(::AuthenticationDatasourceImpl) bind AuthenticationDatasource::class
 }

@@ -6,18 +6,18 @@ import kotlinx.coroutines.withContext
 import app.domain.alias.SignUpType
 import app.domain.usecases.UseCase
 import app.domain.usecases.corroutine.CoroutinesUseCase
-import app.domain.parameters.authentication.SignUpParameter
+import app.domain.parameters.authentication.SignInParameter
 
 import app.data.repositories.authentication.AuthenticationRepository
 
-interface SignUpUseCase {
-    operator fun invoke(parameters: SignUpParameter): Flow<SignUpType>
+interface SignInUseCase {
+    operator fun invoke(parameters: SignInParameter): Flow<SignUpType>
 }
 
-class SignUpUseCaseImpl(
+class SignInUseCaseImpl(
     private val useCase: CoroutinesUseCase,
     private val repository: AuthenticationRepository,
-) : SignUpUseCase, UseCase<SignUpParameter, SignUpType>() {
-    override suspend fun doWork(parameters: SignUpParameter): SignUpType =
-        withContext(useCase.io()) { repository.signUp(parameters) }
+) : SignInUseCase, UseCase<SignInParameter, SignUpType>() {
+    override suspend fun doWork(parameters: SignInParameter): SignUpType =
+        withContext(useCase.io()) { repository.signIn(parameters) }
 }

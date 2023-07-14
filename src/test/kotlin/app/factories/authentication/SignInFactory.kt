@@ -1,28 +1,25 @@
-package app.factories
+package app.factories.authentication
 
 import arrow.core.left
 import arrow.core.right
 
-import app.domain.values.NameValue
 import app.domain.values.EmailValue
+
+import app.domain.parameters.authentication.SignInParameter
 import app.domain.values.PasswordValue
 
-import app.domain.parameters.authentication.SignUpParameter
-
 import app.external.network.responses.message.MessageResponse
-import app.external.network.responses.authentication.SignUpResponse
-import app.external.network.responses.authentication.SignUpUserResponse
-import app.external.network.responses.authentication.SignUpUserMetadataResponse
+import app.external.network.responses.authentication.AuthenticationResponse
+import app.external.network.responses.authentication.AuthenticationUserResponse
+import app.external.network.responses.authentication.AuthenticationMetadataResponse
 
-class SignUpFactory {
-    val validParams = SignUpParameter(
-        NameValue("Gabriel Ramos"),
+class SignInFactory {
+    val validParams = SignInParameter(
         EmailValue("email@email.com"),
         PasswordValue("P@ssw0rD"),
     )
 
-    val invalidParams = SignUpParameter(
-        NameValue(""),
+    val invalidParams = SignInParameter(
         EmailValue(""),
         PasswordValue(""),
     )
@@ -31,15 +28,15 @@ class SignUpFactory {
     val success get() = create(Mock.Success)
 
     private fun create(mock: Mock) = when (mock) {
-        Mock.Failure -> (400 to MessageResponse("Este e-mail já foi cadastrado.")).left()
+        Mock.Failure -> (400 to MessageResponse("Credenciais inválidas.")).left()
         Mock.Success -> (
-            200 to SignUpResponse(
+            200 to AuthenticationResponse(
                 3600,
                 "5CQcsREkB5xcqbY1L...",
                 "5CQcsREkB5xcqbY1L...",
-                SignUpUserResponse(
+                AuthenticationUserResponse(
                     "bed@email.com",
-                    SignUpUserMetadataResponse("Bed")
+                    AuthenticationMetadataResponse("Bed")
                 )
             )
             ).right()

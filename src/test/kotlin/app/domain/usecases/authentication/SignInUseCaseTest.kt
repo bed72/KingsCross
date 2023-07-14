@@ -21,7 +21,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 import app.rule.MainCoroutineRule
 
-import app.factories.authentication.SignUpFactory
+import app.factories.authentication.SignInFactory
 
 import app.data.repositories.authentication.AuthenticationRepository
 
@@ -29,13 +29,13 @@ import app.external.network.responses.message.MessageResponse
 import app.external.network.responses.authentication.AuthenticationResponse
 
 @ExperimentalCoroutinesApi
-internal class SignUpUseCaseTest {
+internal class SignInUseCaseTest {
     @get:Rule
     val rule = MainCoroutineRule()
 
-    private lateinit var useCase: SignUpUseCase
+    private lateinit var useCase: SignInUseCase
 
-    private lateinit var factory: SignUpFactory
+    private lateinit var factory: SignInFactory
 
     @MockK(relaxUnitFun = true)
     private lateinit var repository: AuthenticationRepository
@@ -44,13 +44,13 @@ internal class SignUpUseCaseTest {
     fun setup() {
         MockKAnnotations.init(this)
 
-        factory = SignUpFactory()
-        useCase = SignUpUseCaseImpl(rule.dispatcher, repository)
+        factory = SignInFactory()
+        useCase = SignInUseCaseImpl(rule.dispatcher, repository)
     }
 
     @Test
-    fun `Should return value not null when trying sign up account`() = runTest {
-        coEvery { repository.signUp(any()) } returns  factory.failure
+    fun `Should return value not null when trying sign in account`() = runTest {
+        coEvery { repository.signIn(any()) } returns  factory.failure
 
         val response = useCase(factory.validParams).first()
 
@@ -58,17 +58,17 @@ internal class SignUpUseCaseTest {
     }
 
     @Test
-    fun `Should only call repository once when trying sign up account`() = runTest {
-        coEvery { repository.signUp(any()) } returns  factory.failure
+    fun `Should only call repository once when trying sign in account`() = runTest {
+        coEvery { repository.signIn(any()) } returns  factory.failure
 
         useCase(factory.validParams).first()
 
-        coVerify(exactly = 1) { repository.signUp(any()) }
+        coVerify(exactly = 1) { repository.signIn(any()) }
     }
 
     @Test
-    fun `Should return failure value when trying a sign up account`() = runTest {
-        coEvery { repository.signUp(any()) } returns  factory.failure
+    fun `Should return failure value when trying a sign in account`() = runTest {
+        coEvery { repository.signIn(any()) } returns  factory.failure
 
         val response = useCase(factory.validParams).first()
 
@@ -76,20 +76,20 @@ internal class SignUpUseCaseTest {
     }
 
     @Test
-    fun `Should return failure value with status and message when trying a sign up account`() = runTest {
-        coEvery { repository.signUp(any()) } returns  factory.failure
+    fun `Should return failure value with status and message when trying a sign in account`() = runTest {
+        coEvery { repository.signIn(any()) } returns  factory.failure
 
         val response = useCase(factory.validParams).first()
 
         response.onLeft { (status, data) ->
             assertEquals(status, 400)
-            assertEquals(data.message, "Este e-mail já foi cadastrado.")
+            assertEquals(data.message, "Credenciais inválidas.")
         }
     }
 
     @Test
-    fun `Should return success value when trying a sign up account`() = runTest {
-        coEvery { repository.signUp(any()) } returns  factory.success
+    fun `Should return success value when trying a sign in account`() = runTest {
+        coEvery { repository.signIn(any()) } returns  factory.success
 
         val response = useCase(factory.validParams).first()
 
@@ -97,8 +97,8 @@ internal class SignUpUseCaseTest {
     }
 
     @Test
-    fun `Should return success value with status and message when trying a sign up account`() = runTest {
-        coEvery { repository.signUp(any()) } returns  factory.success
+    fun `Should return success value with status and message when trying a sign in account`() = runTest {
+        coEvery { repository.signIn(any()) } returns  factory.success
 
         val response = useCase(factory.validParams).first()
 
@@ -111,5 +111,4 @@ internal class SignUpUseCaseTest {
             assertEquals(data.user.userMetadata.name, "Bed")
         }
     }
-
 }
