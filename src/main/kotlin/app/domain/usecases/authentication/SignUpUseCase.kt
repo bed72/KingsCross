@@ -18,12 +18,7 @@ interface SignUpUseCase {
 class SignUpUseCaseImpl(
     private val useCase: CoroutinesUseCase,
     private val repository: AuthenticationRepository,
-    private val repositoryLocal: UserRepository,
 ) : SignUpUseCase, UseCase<SignUpParameter, SignUpType>() {
-    override suspend fun doWork(parameters: SignUpParameter): SignUpType {
-        repositoryLocal.create(parameters)
-
-        return withContext(useCase.io()) { repository.signUp(parameters) }
-    }
-
+    override suspend fun doWork(parameters: SignUpParameter): SignUpType =
+        withContext(useCase.io()) { repository.signUp(parameters) }
 }

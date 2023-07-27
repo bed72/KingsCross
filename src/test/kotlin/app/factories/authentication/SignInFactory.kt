@@ -28,17 +28,23 @@ class SignInFactory {
     val success get() = create(Mock.Success)
 
     private fun create(mock: Mock) = when (mock) {
-        Mock.Failure -> (400 to MessageResponse("Credenciais inválidas.")).left()
+        Mock.Failure -> (
+                400 to MessageResponse(
+                        "Credenciais inválidas.",
+                        "",
+                        ""
+                    )
+                ).left()
         Mock.Success -> (
             200 to AuthenticationResponse(
-                3600,
-                "5CQcsREkB5xcqbY1L...",
-                "5CQcsREkB5xcqbY1L...",
-                AuthenticationUserResponse(
-                    "bed@email.com",
-                    AuthenticationMetadataResponse("Bed")
+                    3600,
+                    "5CQcsREkB5xcqbY1L...",
+                    "5CQcsREkB5xcqbY1L...",
+                    AuthenticationUserResponse(
+                        "bed@email.com",
+                        AuthenticationMetadataResponse("Bed")
+                    )
                 )
-            )
             ).right()
     }
 

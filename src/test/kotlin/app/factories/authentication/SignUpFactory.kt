@@ -31,7 +31,13 @@ class SignUpFactory {
     val success get() = create(Mock.Success)
 
     private fun create(mock: Mock) = when (mock) {
-        Mock.Failure -> (400 to MessageResponse("Este e-mail já foi cadastrado.")).left()
+        Mock.Failure -> (
+                400 to MessageResponse(
+                        "Este e-mail já foi cadastrado.",
+                        "",
+                        ""
+                    )
+                ).left()
         Mock.Success -> (
             200 to AuthenticationResponse(
                 3600,

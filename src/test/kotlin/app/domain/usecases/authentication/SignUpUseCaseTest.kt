@@ -83,7 +83,7 @@ internal class SignUpUseCaseTest {
 
         response.onLeft { (status, data) ->
             assertEquals(status, 400)
-            assertEquals(data.message, "Este e-mail já foi cadastrado.")
+            assertEquals(data.error, "Este e-mail já foi cadastrado.")
         }
     }
 

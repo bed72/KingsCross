@@ -83,7 +83,7 @@ internal class SignInUseCaseTest {
 
         response.onLeft { (status, data) ->
             assertEquals(status, 400)
-            assertEquals(data.message, "Credenciais inválidas.")
+            assertEquals(data.error, "Credenciais inválidas.")
         }
     }
 
