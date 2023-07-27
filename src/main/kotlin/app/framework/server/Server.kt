@@ -12,7 +12,7 @@ import io.ktor.server.plugins.statuspages.StatusPagesConfig
 import io.ktor.server.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.server.plugins.requestvalidation.RequestValidationException
 
-import app.external.network.adapters.JsonAdapter
+import app.external.network.clients.JsonClient
 
 import app.framework.views.View
 import app.framework.views.Status
@@ -22,7 +22,7 @@ import app.framework.controllers.configureControllers
 fun Application.configureServer() {
 
     install(ContentNegotiation) {
-        json(JsonAdapter.configure)
+        json(JsonClient.configure)
     }
 
     install(StatusPages) {

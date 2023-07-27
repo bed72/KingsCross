@@ -42,10 +42,16 @@ dependencies {
     implementation("io.ktor:ktor-server-content-negotiation-jvm:$ktorVersion")
     implementation("io.ktor:ktor-serialization-kotlinx-json-jvm:$ktorVersion")
 
+    // Database
+    implementation("org.ktorm:ktorm-core:3.6.0")
+    implementation("org.ktorm:ktorm-support-postgresql:3.6.0")
+    implementation("org.postgresql:postgresql:42.6.0")
+
     // Others
     implementation("io.arrow-kt:arrow-core:1.2.0-RC")
     implementation("io.github.cdimascio:dotenv-kotlin:6.4.1")
     implementation("ch.qos.logback:logback-classic:$logbackVersion")
+    implementation("com.expediagroup", "graphql-kotlin-spring-server", "6.5.3")
 
     // Tests
     testImplementation("io.mockk:mockk:1.13.5")

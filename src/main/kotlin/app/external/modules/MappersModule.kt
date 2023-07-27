@@ -1,20 +1,25 @@
 package app.external.modules
 
 import org.koin.dsl.module
-import org.koin.core.module.dsl.singleOf
+import org.koin.core.module.dsl.factoryOf
 
-import app.data.mappers.authentication.SignUpDatasourceMapper
-import app.data.mappers.authentication.SignInDatasourceMapper
+import app.data.mappers.local.user.UserLocalDatasourceMapper
+
+import app.data.mappers.remote.authentication.SignUpRemoteDatasourceMapper
+import app.data.mappers.remote.authentication.SignInRemoteDatasourceMapper
 
 import app.framework.mappers.message.MessageViewMapper
 import app.framework.mappers.authentication.AuthenticationViewMapper
 
 val mapperModule = module {
-    // DataSources
-    singleOf(::SignUpDatasourceMapper)
-    singleOf(::SignInDatasourceMapper)
+    // LocalDataSource
+    factoryOf(::UserLocalDatasourceMapper)
+
+    // RemoteDataSources
+    factoryOf(::SignUpRemoteDatasourceMapper)
+    factoryOf(::SignInRemoteDatasourceMapper)
 
     // Views
-    singleOf(::MessageViewMapper)
-    singleOf(::AuthenticationViewMapper)
+    factoryOf(::MessageViewMapper)
+    factoryOf(::AuthenticationViewMapper)
 }

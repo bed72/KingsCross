@@ -1,11 +1,11 @@
-package app.external.network.adapters
+package app.external.network.clients
 
 import kotlinx.serialization.json.Json
 
 import kotlinx.serialization.ExperimentalSerializationApi
 
 @OptIn(ExperimentalSerializationApi::class)
-class JsonAdapter {
+class JsonClient {
     companion object {
         val configure get() = Json {
             explicitNulls = false

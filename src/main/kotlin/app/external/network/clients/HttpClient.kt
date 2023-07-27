@@ -1,4 +1,4 @@
-package app.external.network.adapters
+package app.external.network.clients
 
 import arrow.core.left
 import arrow.core.right
@@ -13,7 +13,6 @@ import io.ktor.network.tls.CIOCipherSuites
 import io.ktor.serialization.kotlinx.json.json
 
 import io.ktor.client.call.body
-import io.ktor.client.HttpClient
 import io.ktor.client.request.header
 import io.ktor.client.engine.cio.CIO
 import io.ktor.client.request.headers
@@ -24,6 +23,7 @@ import io.ktor.client.plugins.DefaultRequest
 import io.ktor.client.statement.HttpResponse
 import io.ktor.client.plugins.logging.Logging
 import io.ktor.client.plugins.logging.LogLevel
+import io.ktor.client.HttpClient as KtorClient
 import io.ktor.client.request.HttpRequestBuilder
 import io.ktor.client.engine.cio.CIOEngineConfig
 import io.ktor.client.plugins.observer.ResponseObserver
@@ -31,19 +31,21 @@ import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 
 import app.external.environment.Environment
 
-class HttpAdapter(private val environment: Environment) {
+interface HttpClient {
+    operator fun invoke(): KtorClient
+}
+
+class HttpClientImpl(private val env: Environment) : HttpClient {
 
     private val timeout = 15000L
 
-    val client get() = HttpClient(CIO) {
+    override fun invoke() = KtorClient(CIO) {
         configureLogging()
         configureRequestDefault()
         configureResponseTimeout()
         configureResponseObserver()
         configureContentNegotiation()
     }
-
-    private fun env(resource: String) = environment.dotenv.get(resource)
 
     private fun HttpClientConfig<CIOEngineConfig>.configureLogging() {
         install(Logging) {
@@ -54,10 +56,10 @@ class HttpAdapter(private val environment: Environment) {
 
     private fun HttpClientConfig<CIOEngineConfig>.configureRequestDefault() {
         install(DefaultRequest) {
-            url(env("url"))
+            url(env.get(Environment.Keys.SUPABASE_URL))
             headers {
                 header(HttpHeaders.ContentType, ContentType.Application.Json)
-                header("apikey", env("key"))
+                header("apikey", env.get(Environment.Keys.SUPABASE_KEY))
             }
         }
     }
@@ -81,7 +83,7 @@ class HttpAdapter(private val environment: Environment) {
 
     private fun HttpClientConfig<CIOEngineConfig>.configureContentNegotiation() {
         install(ContentNegotiation) {
-            json(JsonAdapter.configure)
+            json(JsonClient.configure)
 
             engine {
                 https {
@@ -93,7 +95,7 @@ class HttpAdapter(private val environment: Environment) {
     }
 }
 
-suspend inline fun <reified F, reified S> HttpClient.request(
+suspend inline fun <reified F, reified S> KtorClient.request(
     block: HttpRequestBuilder.() -> Unit,
 ): Either<Pair<Int, F>, Pair<Int, S>> {
     val response = request { block() }

@@ -1,4 +1,4 @@
-package app.data.datasources.authentication
+package app.data.datasources.remote.authentication
 
 import io.ktor.http.HttpMethod
 import io.ktor.http.ContentType
@@ -11,28 +11,28 @@ import app.domain.alias.SignUpType
 import app.domain.parameters.authentication.SignUpParameter
 import app.domain.parameters.authentication.SignInParameter
 
-import app.data.mappers.authentication.SignUpDatasourceMapper
-import app.data.mappers.authentication.SignInDatasourceMapper
+import app.data.mappers.remote.authentication.SignUpRemoteDatasourceMapper
+import app.data.mappers.remote.authentication.SignInRemoteDatasourceMapper
 
 import app.external.network.paths.ApiPath
-import app.external.network.adapters.request
-import app.external.network.adapters.HttpAdapter
+import app.external.network.clients.request
+import app.external.network.clients.HttpClient
 
 import app.external.network.responses.message.MessageResponse
 import app.external.network.responses.authentication.AuthenticationResponse
 
-interface AuthenticationDatasource {
+interface RemoteAuthenticationDatasource {
     suspend fun signUp(parameters: SignUpParameter): SignUpType
     suspend fun signIn(parameters: SignInParameter): SignUpType
 }
 
-class AuthenticationDatasourceImpl(
-    private val adapter: HttpAdapter,
-    private val signUpMapper: SignUpDatasourceMapper,
-    private val signInMapper: SignInDatasourceMapper
-) : AuthenticationDatasource {
+class RemoteAuthenticationDatasourceImpl(
+    private val client: HttpClient,
+    private val signUpMapper: SignUpRemoteDatasourceMapper,
+    private val signInMapper: SignInRemoteDatasourceMapper
+) : RemoteAuthenticationDatasource {
     override suspend fun signUp(parameters: SignUpParameter): SignUpType =
-        adapter.client.request<MessageResponse, AuthenticationResponse> {
+        client().request<MessageResponse, AuthenticationResponse> {
             method = HttpMethod.Post
             url(ApiPath.SIGN_UP.value)
             setBody(signUpMapper(parameters))
@@ -40,7 +40,7 @@ class AuthenticationDatasourceImpl(
         }
 
     override suspend fun signIn(parameters: SignInParameter): SignUpType =
-        adapter.client.request<MessageResponse, AuthenticationResponse> {
+        client().request<MessageResponse, AuthenticationResponse> {
             method = HttpMethod.Post
             url(ApiPath.SIGN_IN.value)
             setBody(signInMapper(parameters))
