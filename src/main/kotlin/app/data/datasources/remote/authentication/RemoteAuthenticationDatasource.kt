@@ -6,10 +6,6 @@ import io.ktor.http.contentType
 import io.ktor.client.request.url
 import io.ktor.client.request.setBody
 
-import app.domain.alias.SignUpType
-
-import app.domain.parameters.authentication.SignUpParameter
-import app.domain.parameters.authentication.SignInParameter
 
 import app.data.mappers.remote.authentication.SignUpRemoteDatasourceMapper
 import app.data.mappers.remote.authentication.SignInRemoteDatasourceMapper
@@ -21,10 +17,12 @@ import app.external.network.clients.HttpClient
 import app.external.network.responses.message.MessageResponse
 import app.external.network.responses.authentication.AuthenticationResponse
 
-interface RemoteAuthenticationDatasource {
-    suspend fun signUp(parameters: SignUpParameter): SignUpType
-    suspend fun signIn(parameters: SignInParameter): SignUpType
-}
+import app.domain.alias.SignUpType
+
+import app.domain.parameters.authentication.SignUpParameter
+import app.domain.parameters.authentication.SignInParameter
+
+import app.domain.datasources.remote.authentication.RemoteAuthenticationDatasource
 
 class RemoteAuthenticationDatasourceImpl(
     private val client: HttpClient,

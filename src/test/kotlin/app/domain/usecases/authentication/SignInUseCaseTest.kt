@@ -23,7 +23,7 @@ import app.rule.MainCoroutineRule
 
 import app.factories.authentication.SignInFactory
 
-import app.data.repositories.authentication.AuthenticationRepository
+import app.domain.repositories.authentication.AuthenticationRepository
 
 import app.external.network.responses.message.MessageResponse
 import app.external.network.responses.authentication.AuthenticationResponse

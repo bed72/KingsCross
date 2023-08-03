@@ -8,8 +8,7 @@ import app.domain.usecases.UseCase
 import app.domain.usecases.corroutine.CoroutinesUseCase
 import app.domain.parameters.authentication.SignUpParameter
 
-import app.data.repositories.authentication.AuthenticationRepository
-import app.data.repositories.user.UserRepository
+import app.domain.repositories.authentication.AuthenticationRepository
 
 interface SignUpUseCase {
     operator fun invoke(parameters: SignUpParameter): Flow<SignUpType>

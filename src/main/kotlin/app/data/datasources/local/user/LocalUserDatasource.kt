@@ -10,10 +10,7 @@ import app.external.database.clients.DatabaseClient
 import app.domain.parameters.authentication.SignUpParameter
 
 import app.data.mappers.local.user.UserLocalDatasourceMapper
-
-interface LocalUserDatasource {
-    suspend fun create(parameter: SignUpParameter)
-}
+import app.domain.datasources.local.user.LocalUserDatasource
 
 class LocalUserDatasourceImpl(
     private val client: DatabaseClient,

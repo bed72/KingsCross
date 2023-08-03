@@ -1,7 +1,7 @@
-package app.data.repositories.user
+package app.domain.repositories.user
 
-import app.data.datasources.local.user.LocalUserDatasource
 import app.domain.parameters.authentication.SignUpParameter
+import app.domain.datasources.local.user.LocalUserDatasource
 
 interface UserRepository {
     suspend fun create(parameters: SignUpParameter)

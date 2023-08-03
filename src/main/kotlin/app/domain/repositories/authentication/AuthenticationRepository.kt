@@ -1,10 +1,11 @@
-package app.data.repositories.authentication
+package app.domain.repositories.authentication
 
 import app.domain.alias.SignUpType
+
 import app.domain.parameters.authentication.SignUpParameter
 import app.domain.parameters.authentication.SignInParameter
 
-import app.data.datasources.remote.authentication.RemoteAuthenticationDatasource
+import app.domain.datasources.remote.authentication.RemoteAuthenticationDatasource
 
 interface AuthenticationRepository {
     suspend fun signUp(parameters: SignUpParameter): SignUpType

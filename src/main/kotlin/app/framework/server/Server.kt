@@ -30,7 +30,6 @@ fun Application.configureServer() {
         json(JsonClient.configure)
     }
 
-
     install(StatusPages) {
         configureStatus(HttpStatusCode.NotFound)
         configureStatus(HttpStatusCode.BadRequest)
