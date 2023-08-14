@@ -30,5 +30,5 @@ data class AuthenticationUserResponse(
 @Serializable
 data class AuthenticationMetadataResponse(
     @SerialName("name")
-    val name: String,
+    val name: String? = "bed",
 )

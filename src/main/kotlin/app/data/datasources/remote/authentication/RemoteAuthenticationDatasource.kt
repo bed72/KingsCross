@@ -1,11 +1,8 @@
 package app.data.datasources.remote.authentication
 
 import io.ktor.http.HttpMethod
-import io.ktor.http.ContentType
-import io.ktor.http.contentType
 import io.ktor.client.request.url
 import io.ktor.client.request.setBody
-
 
 import app.data.mappers.remote.authentication.SignUpRemoteDatasourceMapper
 import app.data.mappers.remote.authentication.SignInRemoteDatasourceMapper
@@ -34,7 +31,6 @@ class RemoteAuthenticationDatasourceImpl(
             method = HttpMethod.Post
             url(ApiPath.SIGN_UP.value)
             setBody(signUpMapper(parameters))
-            contentType(ContentType.Application.Json)
         }
 
     override suspend fun signIn(parameters: SignInParameter): SignUpType =
@@ -42,6 +38,5 @@ class RemoteAuthenticationDatasourceImpl(
             method = HttpMethod.Post
             url(ApiPath.SIGN_IN.value)
             setBody(signInMapper(parameters))
-            contentType(ContentType.Application.Json)
         }
 }

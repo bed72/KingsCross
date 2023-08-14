@@ -11,6 +11,6 @@ import app.framework.views.message.MessageOutView
 
 fun Route.healthCheckController() {
     get {
-        call.response(HttpStatusCode.OK.value, MessageOutView("king's Cross is UP. The documentation path is /doc"))
+        call.response(HttpStatusCode.OK.value, MessageOutView("king's Cross is UP."))
     }
 }

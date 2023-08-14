@@ -11,4 +11,3 @@ data class SignInRequest(
     @SerialName("password")
     val password: String,
 )
-

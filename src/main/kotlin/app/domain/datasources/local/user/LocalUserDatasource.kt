@@ -5,4 +5,3 @@ import app.domain.parameters.authentication.SignUpParameter
 interface LocalUserDatasource {
     suspend fun create(parameter: SignUpParameter)
 }
-

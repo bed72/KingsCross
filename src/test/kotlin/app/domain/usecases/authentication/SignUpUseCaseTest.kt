@@ -111,5 +111,4 @@ internal class SignUpUseCaseTest {
             assertEquals(data.user.userMetadata.name, "Bed")
         }
     }
-
 }

@@ -4,6 +4,9 @@ import arrow.core.left
 import arrow.core.right
 import arrow.core.Either
 
+import java.nio.file.Files
+import java.nio.file.Paths
+
 import io.ktor.http.HttpHeaders
 import io.ktor.http.ContentType
 import io.ktor.http.HttpStatusCode
@@ -22,11 +25,13 @@ import io.ktor.client.plugins.HttpTimeout
 import io.ktor.client.plugins.DefaultRequest
 import io.ktor.client.statement.HttpResponse
 import io.ktor.client.plugins.logging.Logging
+import io.ktor.client.plugins.cache.HttpCache
 import io.ktor.client.plugins.logging.LogLevel
 import io.ktor.client.HttpClient as KtorClient
 import io.ktor.client.request.HttpRequestBuilder
 import io.ktor.client.engine.cio.CIOEngineConfig
 import io.ktor.client.plugins.observer.ResponseObserver
+import io.ktor.client.plugins.cache.storage.FileStorage
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 
 import app.external.environment.Environment
@@ -40,11 +45,20 @@ class HttpClientImpl(private val env: Environment) : HttpClient {
     private val timeout = 15000L
 
     override fun invoke() = KtorClient(CIO) {
+        configureCache()
         configureLogging()
         configureRequestDefault()
         configureResponseTimeout()
         configureResponseObserver()
         configureContentNegotiation()
+    }
+
+    private fun HttpClientConfig<CIOEngineConfig>.configureCache() {
+        install(HttpCache) {
+            Files.createDirectories(Paths.get("build/cache")).toFile().run {
+                publicStorage(FileStorage(this))
+            }
+        }
     }
 
     private fun HttpClientConfig<CIOEngineConfig>.configureLogging() {
@@ -103,10 +117,6 @@ suspend inline fun <reified F, reified S> KtorClient.request(
     close()
 
     return when (val status = response.status) {
-        HttpStatusCode.BadRequest -> failure(status.value, response)
-        HttpStatusCode.Unauthorized -> failure(status.value, response)
-        HttpStatusCode.TooManyRequests -> failure(status.value, response)
-        HttpStatusCode.UnprocessableEntity -> failure(status.value, response)
         HttpStatusCode.OK, HttpStatusCode.Created -> success(status.value, response)
         else -> failure(status.value, response)
     }

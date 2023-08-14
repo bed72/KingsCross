@@ -5,7 +5,6 @@ import org.ktorm.schema.Table
 import org.ktorm.entity.Entity
 import org.ktorm.schema.varchar
 
-
 interface UserEntity : Entity<UserEntity> {
     companion object : Entity.Factory<UserEntity>()
 

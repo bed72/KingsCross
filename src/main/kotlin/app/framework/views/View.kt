@@ -5,7 +5,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class View<out T>(
-    @SerialName("status_code")
+    @SerialName("status")
     val status: Status = Status.SUCCESS,
 
     @SerialName("data")

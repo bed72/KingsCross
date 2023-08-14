@@ -1,5 +1,6 @@
 val ktorVersion: String by project
 val koinVersion: String by project
+val ktormVersion: String by project
 val kotlinVersion: String by project
 val logbackVersion: String by project
 
@@ -35,21 +36,19 @@ dependencies {
 
     // Server
     implementation("io.ktor:ktor-server-cors:$ktorVersion")
-    implementation("io.ktor:ktor-server-swagger:$ktorVersion")
     implementation("io.ktor:ktor-server-cio-jvm:$ktorVersion")
     implementation("io.ktor:ktor-server-core-jvm:$ktorVersion")
-    implementation("io.ktor:ktor-server-status-pages:$ktorVersion")
     implementation("io.ktor:ktor-server-request-validation:$ktorVersion")
     implementation("io.ktor:ktor-server-content-negotiation-jvm:$ktorVersion")
     implementation("io.ktor:ktor-serialization-kotlinx-json-jvm:$ktorVersion")
 
     // Database
-    implementation("org.ktorm:ktorm-core:3.6.0")
-    implementation("org.ktorm:ktorm-support-postgresql:3.6.0")
+    implementation("org.ktorm:ktorm-core:$ktormVersion")
+    implementation("org.ktorm:ktorm-support-postgresql:$ktormVersion")
     implementation("org.postgresql:postgresql:42.6.0")
 
     // Others
-    implementation("io.arrow-kt:arrow-core:1.2.0-RC")
+    implementation("io.arrow-kt:arrow-core:1.2.0")
     implementation("io.github.cdimascio:dotenv-kotlin:6.4.1")
     implementation("ch.qos.logback:logback-classic:$logbackVersion")
 

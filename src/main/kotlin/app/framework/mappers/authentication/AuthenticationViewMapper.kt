@@ -12,7 +12,7 @@ class AuthenticationViewMapper : Mapper<AuthenticationResponse, AuthenticationOu
             expireIn = map.expireIn,
             accessToken = map.accessToken,
             refreshToken = map.refreshToken,
-            name = map.user.userMetadata.name,
+            name = map.user.userMetadata.name!!,
             email = map.user.email,
         )
 }
