@@ -6,6 +6,6 @@ import app.domain.parameters.authentication.SignUpParameter
 import app.domain.parameters.authentication.SignInParameter
 
 interface RemoteAuthenticationDatasource {
-    suspend fun signUp(parameters: SignUpParameter): SignUpType
-    suspend fun signIn(parameters: SignInParameter): SignUpType
+    suspend fun signUp(parameter: SignUpParameter): SignUpType
+    suspend fun signIn(parameter: SignInParameter): SignUpType
 }

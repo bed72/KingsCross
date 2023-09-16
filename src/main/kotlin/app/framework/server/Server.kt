@@ -1,11 +1,9 @@
 package app.framework.server
 
-import com.apurebase.kgraphql.GraphQL
-
 import io.ktor.serialization.kotlinx.json.json
 
 import io.ktor.server.routing.route
-import io.ktor.server.routing.routing
+import io.ktor.server.routing.Routing
 import io.ktor.server.application.install
 import io.ktor.server.application.Application
 import io.ktor.server.plugins.cors.routing.CORS
@@ -26,21 +24,13 @@ fun Application.configureServer() {
         json(JsonClient.configure)
     }
 
-    install(GraphQL) {
-        playground = true
-        routing {
-            route("/") {
-                healthCheckRoute()
-            }
-            route("/v1/authentication") {
-                signUpRoute()
-                signInRoute()
-            }
+    install(Routing) {
+        route("/") {
+            healthCheckRoute()
         }
-        schema {
-            query("hello") {
-                resolver { -> "World!" }
-            }
+        route("/v1/authentication") {
+            signUpRoute()
+            signInRoute()
         }
     }
 }

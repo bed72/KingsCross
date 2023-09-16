@@ -8,13 +8,13 @@ import app.domain.parameters.authentication.SignInParameter
 import app.domain.datasources.remote.authentication.RemoteAuthenticationDatasource
 
 interface AuthenticationRepository {
-    suspend fun signUp(parameters: SignUpParameter): SignUpType
-    suspend fun signIn(parameters: SignInParameter): SignUpType
+    suspend fun signUp(parameter: SignUpParameter): SignUpType
+    suspend fun signIn(parameter: SignInParameter): SignUpType
 }
 
 class AuthenticationRepositoryImpl(
     private val datasource: RemoteAuthenticationDatasource,
 ) : AuthenticationRepository {
-    override suspend fun signUp(parameters: SignUpParameter): SignUpType = datasource.signUp(parameters)
-    override suspend fun signIn(parameters: SignInParameter): SignUpType = datasource.signIn(parameters)
+    override suspend fun signUp(parameter: SignUpParameter): SignUpType = datasource.signUp(parameter)
+    override suspend fun signIn(parameter: SignInParameter): SignUpType = datasource.signIn(parameter)
 }

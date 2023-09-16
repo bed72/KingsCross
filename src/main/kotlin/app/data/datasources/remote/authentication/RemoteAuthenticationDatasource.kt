@@ -26,17 +26,17 @@ class RemoteAuthenticationDatasourceImpl(
     private val signUpMapper: SignUpRemoteDatasourceMapper,
     private val signInMapper: SignInRemoteDatasourceMapper
 ) : RemoteAuthenticationDatasource {
-    override suspend fun signUp(parameters: SignUpParameter): SignUpType =
+    override suspend fun signUp(parameter: SignUpParameter): SignUpType =
         client().request<MessageResponse, AuthenticationResponse> {
             method = HttpMethod.Post
             url(ApiPath.SIGN_UP.value)
-            setBody(signUpMapper(parameters))
+            setBody(signUpMapper(parameter))
         }
 
-    override suspend fun signIn(parameters: SignInParameter): SignUpType =
+    override suspend fun signIn(parameter: SignInParameter): SignUpType =
         client().request<MessageResponse, AuthenticationResponse> {
             method = HttpMethod.Post
             url(ApiPath.SIGN_IN.value)
-            setBody(signInMapper(parameters))
+            setBody(signInMapper(parameter))
         }
 }

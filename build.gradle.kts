@@ -3,6 +3,7 @@ val koinVersion: String by project
 val ktormVersion: String by project
 val kotlinVersion: String by project
 val logbackVersion: String by project
+val kgraphqlVersion: String by project
 
 plugins {
     kotlin("jvm") version "1.9.10"
@@ -48,7 +49,6 @@ dependencies {
 
     // Others
     implementation("io.arrow-kt:arrow-core:1.2.0")
-    implementation("com.apurebase:kgraphql-ktor:0.19.0")
     implementation("io.github.cdimascio:dotenv-kotlin:6.4.1")
     implementation("ch.qos.logback:logback-classic:$logbackVersion")
 

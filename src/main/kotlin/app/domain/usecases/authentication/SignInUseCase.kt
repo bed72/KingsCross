@@ -13,13 +13,13 @@ import app.domain.parameters.authentication.SignInParameter
 import app.domain.repositories.authentication.AuthenticationRepository
 
 interface SignInUseCase {
-    operator fun invoke(parameters: SignInParameter): Flow<SignUpType>
+    operator fun invoke(parameter: SignInParameter): Flow<SignUpType>
 }
 
 class SignInUseCaseImpl(
     private val useCase: CoroutinesUseCase,
     private val repository: AuthenticationRepository,
 ) : SignInUseCase, UseCase<SignInParameter, SignUpType>() {
-    override suspend fun doWork(parameters: SignInParameter): SignUpType =
-        withContext(useCase.io()) { repository.signIn(parameters) }
+    override suspend fun doWork(parameter: SignInParameter): SignUpType =
+        withContext(useCase.io()) { repository.signIn(parameter) }
 }
