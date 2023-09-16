@@ -8,6 +8,5 @@ import app.external.environment.Environment
 import app.external.environment.EnvironmentImpl
 
 fun environmentModule() = module {
-
     singleOf(::EnvironmentImpl) bind Environment::class
 }

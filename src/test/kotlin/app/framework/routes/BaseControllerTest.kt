@@ -1,4 +1,4 @@
-package app.framework.controllers
+package app.framework.routes
 
 import io.ktor.server.testing.testApplication
 import io.ktor.serialization.kotlinx.json.json

@@ -1,4 +1,4 @@
-package app.framework.controllers.health
+package app.framework.routes.health
 
 import org.junit.Test
 
@@ -8,7 +8,7 @@ import io.ktor.client.request.get
 import io.ktor.http.HttpStatusCode
 import io.ktor.client.statement.bodyAsText
 
-import app.framework.controllers.withBaseTestApplication
+import app.framework.routes.withBaseTestApplication
 
 internal class HealthCheckControllerTest {
     @Test

@@ -1,4 +1,4 @@
-package app.framework.controllers.authentication
+package app.framework.routes.authentication
 
 import org.koin.ktor.ext.inject
 
@@ -7,24 +7,24 @@ import io.ktor.server.routing.Route
 import io.ktor.server.request.receive
 import io.ktor.server.application.call
 
-import app.domain.usecases.authentication.SignInUseCase
+import app.domain.usecases.authentication.SignUpUseCase
 
-import app.framework.server.response
+import app.framework.views.response.response
 
 import app.framework.views.authentication.toParameter
-import app.framework.views.authentication.SignInInView
+import app.framework.views.authentication.SignUpInView
 
 import app.framework.mappers.message.MessageViewMapper
 import app.framework.mappers.authentication.AuthenticationViewMapper
 
-fun Route.signInController() {
+fun Route.signUpRoute() {
 
-    val useCase by inject<SignInUseCase>()
+    val useCase by inject<SignUpUseCase>()
     val failure by inject<MessageViewMapper>()
     val success by inject<AuthenticationViewMapper>()
 
-    post("/sign/in") {
-        val body = call.receive<SignInInView>()
+    post("/sign/up") {
+        val body = call.receive<SignUpInView>()
         val parameters = body.toParameter()
 
         parameters.isValid().fold(

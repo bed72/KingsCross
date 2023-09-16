@@ -1,4 +1,4 @@
-package app.framework.server
+package app.framework.views.response
 
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.response.respond
