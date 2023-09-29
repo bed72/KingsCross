@@ -4,10 +4,6 @@ import org.junit.Test
 import org.junit.Before
 import org.junit.Assert.assertEquals
 
-import app.domain.values.NameValue
-import app.domain.values.EmailValue
-import app.domain.values.PasswordValue
-
 import app.factories.authentication.SignUpFactory
 
 internal class SignUpParameterTest {

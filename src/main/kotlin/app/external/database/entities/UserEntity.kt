@@ -11,12 +11,10 @@ interface UserEntity : Entity<UserEntity> {
     val id: Long?
     var name: String
     var email: String
-    var password: String
 }
 
 object UsersEntity : Table<UserEntity>("users") {
     val id = long("id").primaryKey().bindTo(UserEntity::id)
     val name = varchar("name").bindTo(UserEntity::name)
     val email = varchar("email").bindTo(UserEntity::email)
-    val password = varchar("password").bindTo(UserEntity::password)
 }

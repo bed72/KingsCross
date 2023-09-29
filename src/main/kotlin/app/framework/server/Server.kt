@@ -1,6 +1,8 @@
 package app.framework.server
 
+import kotlinx.serialization.json.Json
 import io.ktor.serialization.kotlinx.json.json
+import kotlinx.serialization.ExperimentalSerializationApi
 
 import io.ktor.server.routing.route
 import io.ktor.server.routing.Routing
@@ -9,28 +11,34 @@ import io.ktor.server.application.Application
 import io.ktor.server.plugins.cors.routing.CORS
 import io.ktor.server.plugins.contentnegotiation.ContentNegotiation
 
-import app.external.network.clients.JsonClient
-
+import app.framework.routes.user.userRoute
 import app.framework.routes.health.healthCheckRoute
-import app.framework.routes.authentication.signUpRoute
-import app.framework.routes.authentication.signInRoute
 
+@OptIn(ExperimentalSerializationApi::class)
 fun Application.configureServer() {
     install(CORS) {
         anyHost()
     }
 
     install(ContentNegotiation) {
-        json(JsonClient.configure)
+        json(
+            Json {
+                explicitNulls = false
+                encodeDefaults = false
+
+                isLenient = true
+                prettyPrint = true
+                ignoreUnknownKeys = true
+            }
+        )
     }
 
     install(Routing) {
         route("/") {
             healthCheckRoute()
         }
-        route("/v1/authentication") {
-            signUpRoute()
-            signInRoute()
+        route("/v1") {
+            userRoute()
         }
     }
 }

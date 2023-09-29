@@ -18,7 +18,7 @@ fun Application.configureModules() {
             datasourceModule,
             repositoryModule,
             useCaseModule,
-            mapperModule
+            adaptersModule
         )
     }
 }
