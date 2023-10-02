@@ -6,7 +6,7 @@ import io.ktor.server.application.ApplicationCall
 
 import app.framework.dtos.Dto
 import app.framework.dtos.Status
-import app.framework.dtos.message.MessageDto
+import app.framework.dtos.MessageDto
 
 suspend inline fun <reified T : Any> ApplicationCall.response(statusCode: Int = 200, adapter: T) {
     val (code, status) = handlerStatus(statusCode)

@@ -1,5 +1,6 @@
 package app.data.adapters
 
-interface Adapter<in I, out O> {
-    operator fun invoke(data: I): O
+interface Adapter<E, M> {
+     fun toEntity(model: M): E
+    fun toModel(entity: E): M
 }

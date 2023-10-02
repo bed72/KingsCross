@@ -1,4 +1,4 @@
-package app.framework.dtos.message
+package app.framework.dtos
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable

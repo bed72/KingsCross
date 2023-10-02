@@ -37,11 +37,11 @@ dependencies {
 
     // Database
     implementation("org.ktorm:ktorm-core:$ktormVersion")
-    implementation("org.ktorm:ktorm-support-sqlite:$ktormVersion")
-    implementation("org.xerial:sqlite-jdbc:3.43.0.0")
+    implementation("org.ktorm:ktorm-support-postgresql:$ktormVersion")
+    implementation("org.postgresql:postgresql:42.6.0")
 
-//    implementation("org.ktorm:ktorm-support-postgresql:$ktormVersion")
-//    implementation("org.postgresql:postgresql:42.6.0")
+//    implementation("org.ktorm:ktorm-support-sqlite:$ktormVersion")
+//    implementation("org.xerial:sqlite-jdbc:3.43.0.0")
 
     // Others
     implementation("am.ik.yavi:yavi:0.13.1")

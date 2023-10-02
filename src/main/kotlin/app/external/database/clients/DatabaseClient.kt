@@ -9,11 +9,11 @@ interface DatabaseClient {
 }
 
 class DatabaseClientImpl(private val env: Environment) : DatabaseClient {
-    override val invoke: Database get() = Database.connect("jdbc:sqlite:default.db")
-//            .connect(
-//                url = env.get(Environment.Keys.DATABASE_URL),
-//                user = env.get(Environment.Keys.DATABASE_USER),
-//                password = env.get(Environment.Keys.DATABASE_PASSWORD),
-//                driver = env.get(Environment.Keys.DATABASE_DRIVER),
-//            )
+    override val invoke: Database get() = Database
+            .connect(
+                url = env.get(Environment.Keys.DATABASE_URL),
+                user = env.get(Environment.Keys.DATABASE_USER),
+                password = env.get(Environment.Keys.DATABASE_PASSWORD),
+                driver = env.get(Environment.Keys.DATABASE_DRIVER),
+            )
 }
