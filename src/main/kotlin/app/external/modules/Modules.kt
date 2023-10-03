@@ -12,9 +12,8 @@ fun Application.configureModules() {
         slf4jLogger(Level.DEBUG)
 
         modules(
-            clientModule(),
+            clientsModule(),
             coroutineModule(),
-            environmentModule(),
             datasourceModule,
             repositoryModule,
             useCaseModule,

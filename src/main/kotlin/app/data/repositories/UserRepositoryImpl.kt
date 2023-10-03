@@ -5,7 +5,7 @@ import app.domain.core.types.CreateUserType
 
 import app.domain.repositories.UserRepository
 
-import app.domain.datasources.LocalUserDatasource
+import app.data.datasources.LocalUserDatasource
 
 class UserRepositoryImpl(
     private val datasource: LocalUserDatasource
