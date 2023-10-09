@@ -1,7 +1,6 @@
 package app.presentation.routes.user
 
 import app.application.dtos.MessageDto
-import arrow.core.NonEmptyList
 
 import org.koin.ktor.ext.inject
 
@@ -15,7 +14,6 @@ import app.application.dtos.UserDto
 
 import app.presentation.server.extensions.response
 
-import app.domain.entities.Message
 import app.domain.usecases.user.UserCreateUseCase
 import app.presentation.server.extensions.toFailure
 
@@ -32,7 +30,7 @@ fun Route.userRoute() {
             { parameter ->
                 useCase(parameter).collect { response ->
                     response.fold(
-                        { failure -> call.response(400, MessageDto(failure)) },
+                        { failure -> call.response(400, MessageDto.toDto(failure)) },
                         { success -> call.response(201, UserDto.toDto(success)) }
                     )
                 }

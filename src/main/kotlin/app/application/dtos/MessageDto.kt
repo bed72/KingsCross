@@ -10,6 +10,6 @@ data class MessageDto(
     val message: String
 ) {
     companion object {
-        operator fun invoke(model: Message) = MessageDto(message = model.message)
+        fun toDto(model: Message) = MessageDto(message = model.message)
     }
 }

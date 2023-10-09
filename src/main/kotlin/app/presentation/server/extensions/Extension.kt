@@ -32,7 +32,7 @@ suspend inline fun ApplicationCall.response(statusCode: Int = 422, messages: Lis
     val (code, status) = handlerStatus(statusCode)
 
     response.status(code)
-    val message = messages.map { MessageDto(it) }
+    val message = messages.map { MessageDto.toDto(it) }
 
     respond(Dto(status, message))
 }
