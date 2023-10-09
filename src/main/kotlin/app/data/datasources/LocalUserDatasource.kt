@@ -1,8 +1,8 @@
 package app.data.datasources
 
-import app.domain.core.models.UserModel
-import app.domain.core.types.CreateUserType
+import app.domain.entities.User
+import app.domain.entities.types.CreateUserType
 
 interface LocalUserDatasource {
-    suspend fun create(parameter: UserModel): CreateUserType
+    suspend fun create(parameter: User): CreateUserType
 }

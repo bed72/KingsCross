@@ -1,8 +1,8 @@
 package app.domain.repositories
 
-import app.domain.core.models.UserModel
-import app.domain.core.types.CreateUserType
+import app.domain.entities.User
+import app.domain.entities.types.CreateUserType
 
 interface UserRepository {
-    suspend fun create(parameters: UserModel): CreateUserType
+    suspend fun create(parameters: User): CreateUserType
 }

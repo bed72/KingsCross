@@ -44,7 +44,6 @@ dependencies {
 //    implementation("org.xerial:sqlite-jdbc:3.43.0.0")
 
     // Others
-    implementation("am.ik.yavi:yavi:0.13.1")
     implementation("io.arrow-kt:arrow-core:1.2.0")
     implementation("io.github.cdimascio:dotenv-kotlin:6.4.1")
     implementation("ch.qos.logback:logback-classic:$logbackVersion")

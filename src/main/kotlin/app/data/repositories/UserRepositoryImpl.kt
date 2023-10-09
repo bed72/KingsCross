@@ -1,7 +1,7 @@
 package app.data.repositories
 
-import app.domain.core.models.UserModel
-import app.domain.core.types.CreateUserType
+import app.domain.entities.UserModel
+import app.domain.entities.types.CreateUserType
 
 import app.domain.repositories.UserRepository
 

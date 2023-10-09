@@ -5,8 +5,8 @@ import org.koin.dsl.module
 import org.koin.core.module.dsl.factoryOf
 
 import app.data.datasources.LocalUserDatasource
-import app.external.datasources.LocalUserDatasourceImpl
+import app.external.repositories.LocalUserRepository
 
 val datasourceModule = module {
-    factoryOf(::LocalUserDatasourceImpl) bind LocalUserDatasource::class
+    factoryOf(::LocalUserRepository) bind LocalUserDatasource::class
 }
