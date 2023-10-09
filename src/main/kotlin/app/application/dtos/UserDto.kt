@@ -1,6 +1,7 @@
 package app.application.dtos
 
-import app.domain.entities.User
+import app.domain.entities.UserIn
+import app.domain.entities.UserOut
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
@@ -20,13 +21,13 @@ data class UserDto(
     val password: String,
 ) {
     companion object {
-        fun toDto(model: User) = UserDto(
+        fun toDto(model: UserOut) = UserDto(
             id = "",
-            name = model.name(),
-            email = model.email(),
-            password = model.password()
+            name = model.name,
+            email = model.email,
+            password = model.password
         )
     }
 }
 
-fun UserDto.toModel() = User.validated(name, email, password)
+fun UserDto.toModel() = UserIn.validated(name, email, password)

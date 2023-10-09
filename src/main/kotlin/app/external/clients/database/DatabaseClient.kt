@@ -1,5 +1,6 @@
-package app.external.clients
+package app.external.clients.database
 
+import app.external.clients.evironment.EnvironmentClient
 import org.ktorm.database.Database
 
 interface DatabaseClient {

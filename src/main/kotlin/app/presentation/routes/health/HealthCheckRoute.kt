@@ -6,7 +6,7 @@ import io.ktor.server.routing.get
 import io.ktor.server.routing.Route
 import io.ktor.server.application.call
 
-import app.presentation.server.response.response
+import app.presentation.server.extensions.response
 import app.application.dtos.MessageDto
 
 fun Route.healthCheckRoute() {

@@ -1,12 +1,24 @@
-package app.presentation.server.response
+package app.presentation.server.extensions
+
+import arrow.core.NonEmptyList
 
 import io.ktor.http.HttpStatusCode
+
+import io.ktor.util.pipeline.PipelineContext
+
 import io.ktor.server.response.respond
+import io.ktor.server.application.call
 import io.ktor.server.application.ApplicationCall
+
+import app.domain.entities.Message
 
 import app.application.dtos.Dto
 import app.application.dtos.Status
 import app.application.dtos.MessageDto
+
+suspend fun PipelineContext<Unit, ApplicationCall>.toFailure(failure: NonEmptyList<Message>) {
+    call.response(messages = failure.toList())
+}
 
 suspend inline fun <reified T : Any> ApplicationCall.response(statusCode: Int = 200, adapter: T) {
     val (code, status) = handlerStatus(statusCode)
@@ -16,11 +28,11 @@ suspend inline fun <reified T : Any> ApplicationCall.response(statusCode: Int = 
     respond(Dto(status, adapter))
 }
 
-suspend inline fun ApplicationCall.response(statusCode: Int = 422, messages: MutableSet<String?>) {
+suspend inline fun ApplicationCall.response(statusCode: Int = 422, messages: List<Message>) {
     val (code, status) = handlerStatus(statusCode)
 
     response.status(code)
-    val message = messages.map { MessageDto(it ?: "Ops, um erro aconteceu!") }
+    val message = messages.map { MessageDto(it) }
 
     respond(Dto(status, message))
 }

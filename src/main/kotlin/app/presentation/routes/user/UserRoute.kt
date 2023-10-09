@@ -1,5 +1,8 @@
 package app.presentation.routes.user
 
+import app.application.dtos.MessageDto
+import arrow.core.NonEmptyList
+
 import org.koin.ktor.ext.inject
 
 import io.ktor.server.routing.post
@@ -10,7 +13,11 @@ import io.ktor.server.application.call
 import app.application.dtos.toModel
 import app.application.dtos.UserDto
 
+import app.presentation.server.extensions.response
+
+import app.domain.entities.Message
 import app.domain.usecases.user.UserCreateUseCase
+import app.presentation.server.extensions.toFailure
 
 fun Route.userRoute() {
 
@@ -18,14 +25,18 @@ fun Route.userRoute() {
 
     post("/user") {
         val body = call.receive<UserDto>()
-        val parameter = body.toModel()
+        val data = body.toModel()
 
-//        if (parameter.isNotEmpty()) call.response(messages = parameter)
-//        else useCase(body.toModel()).collect { response ->
-//            response.fold(
-//                { failure -> call.response(400, MessageDto(failure)) },
-//                { success -> call.response(201, UserDto(success)) }
-//            )
-//        }
+        data.fold(
+            { messages -> toFailure(messages) },
+            { parameter ->
+                useCase(parameter).collect { response ->
+                    response.fold(
+                        { failure -> call.response(400, MessageDto(failure)) },
+                        { success -> call.response(201, UserDto.toDto(success)) }
+                    )
+                }
+            }
+        )
     }
 }

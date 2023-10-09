@@ -14,10 +14,8 @@ fun Application.configureModules() {
         modules(
             clientsModule(),
             coroutineModule(),
-            datasourceModule,
             repositoryModule,
-            useCaseModule,
-            adaptersModule
+            useCaseModule
         )
     }
 }

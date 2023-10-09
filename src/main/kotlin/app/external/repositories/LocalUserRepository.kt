@@ -1,36 +1,52 @@
 package app.external.repositories
 
-import app.external.clients.DatabaseClient
+import arrow.core.left
+import arrow.core.right
 
-import app.domain.entities.User
+import org.ktorm.dsl.eq
+import org.ktorm.entity.add
+import org.ktorm.entity.last
+import org.ktorm.entity.filter
+import org.ktorm.entity.sequenceOf
+
+import app.domain.entities.UserIn
+import app.domain.entities.Message
+import app.domain.entities.UserOut
+import app.domain.entities.UserType
+
 import app.domain.repositories.UserRepository
-import app.domain.entities.types.CreateUserType
+
+import app.external.clients.database.daos.Users
+import app.external.clients.database.daos.UserDAO
+import app.external.clients.database.DatabaseClient
 
 class LocalUserRepository(
     private val client: DatabaseClient
 ) : UserRepository {
-//    override suspend fun create(parameter: UserModel): CreateUserType =
-//        try {
-////            val id = client.invoke.insertAndGenerateKey(UsersEntity) {
-////                set(it.name, parameter.name.value)
-////                set(it.email, parameter.email.value)
-////            }
-//
-//            client.of.sequenceOf(Users).run {
-//                add(adapter.toEntity(parameter))
+    override suspend fun create(parameter: UserIn): UserType =
+        try {
+            client.of.sequenceOf(Users).run {
+                add(
+                    UserDAO {
+                        name = parameter.name()
+                        email = parameter.email()
+                        password = parameter.password()
+                    }
+                )
 
-//                val data = filter { it.email eq  parameter.email.value }.last()
+                val data = filter { it.email eq parameter.email() }.last()
 
-//                adapter.toModel(data).right()
+                UserOut(
+                    data.id.toString(),
+                    data.name,
+                    data.email,
+                    data.password
+                ).right()
 
-    //            }
-//        } catch (_: Exception) {
-//            MessageModel("Ops, um erro aconteceu ao tentar salvar o usuário!").left()
-//        }
-    override suspend fun create(parameter: User): CreateUserType {
-        TODO("Not yet implemented")
-    }
-
+            }
+        } catch (_: Exception) {
+            Message("Ops, um erro aconteceu ao tentar salvar o usuário!").left()
+        }
 }
 
 
