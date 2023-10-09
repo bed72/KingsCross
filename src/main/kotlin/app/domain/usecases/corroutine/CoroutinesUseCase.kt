@@ -10,5 +10,3 @@ interface CoroutinesUseCase {
     fun default(): CoroutineDispatcher = Dispatchers.Default
     fun unconfined(): CoroutineDispatcher = Dispatchers.Unconfined
 }
-
-class CoroutinesUseCaseImpl : CoroutinesUseCase

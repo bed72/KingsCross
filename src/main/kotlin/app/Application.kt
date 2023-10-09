@@ -3,7 +3,7 @@ package app
 import io.ktor.server.netty.EngineMain.main
 import io.ktor.server.application.Application
 
-import app.application.server.configureServer
+import app.presentation.server.configureServer
 
 import app.external.modules.configureModules
 

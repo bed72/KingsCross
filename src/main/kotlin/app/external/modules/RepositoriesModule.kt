@@ -5,8 +5,9 @@ import org.koin.dsl.module
 import org.koin.core.module.dsl.factoryOf
 
 import app.domain.repositories.UserRepository
-import app.data.repositories.UserRepositoryImpl
+import app.external.repositories.LocalUserRepository
 
 val repositoryModule = module {
-    factoryOf(::UserRepositoryImpl) bind UserRepository::class
+
+    factoryOf(::LocalUserRepository) bind UserRepository::class
 }

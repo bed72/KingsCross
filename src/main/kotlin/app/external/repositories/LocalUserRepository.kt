@@ -3,13 +3,12 @@ package app.external.repositories
 import app.external.clients.DatabaseClient
 
 import app.domain.entities.User
+import app.domain.repositories.UserRepository
 import app.domain.entities.types.CreateUserType
-
-import app.data.datasources.LocalUserDatasource
 
 class LocalUserRepository(
     private val client: DatabaseClient
-) : LocalUserDatasource {
+) : UserRepository {
 //    override suspend fun create(parameter: UserModel): CreateUserType =
 //        try {
 ////            val id = client.invoke.insertAndGenerateKey(UsersEntity) {

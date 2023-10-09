@@ -1,4 +1,4 @@
-package app.application.server
+package app.presentation.server
 
 import kotlinx.serialization.json.Json
 import io.ktor.serialization.kotlinx.json.json
@@ -11,8 +11,8 @@ import io.ktor.server.application.Application
 import io.ktor.server.plugins.cors.routing.CORS
 import io.ktor.server.plugins.contentnegotiation.ContentNegotiation
 
-import app.application.routes.user.userRoute
-import app.application.routes.health.healthCheckRoute
+import app.presentation.routes.user.userRoute
+import app.presentation.routes.health.healthCheckRoute
 
 @OptIn(ExperimentalSerializationApi::class)
 fun Application.configureServer() {

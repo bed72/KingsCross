@@ -1,4 +1,4 @@
-package app.application.routes.user
+package app.presentation.routes.user
 
 import org.koin.ktor.ext.inject
 

@@ -12,7 +12,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.TestCoroutineScheduler
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
 
-import app.domain.usecases.corroutine.CoroutinesUseCase
+import app.application.usecases.corroutine.CoroutinesUseCase
 
 @ExperimentalCoroutinesApi
 class MainCoroutineRule(
