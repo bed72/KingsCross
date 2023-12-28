@@ -1,9 +1,9 @@
 package app.application.dtos
 
-import app.domain.entities.AuthenticationInEntity
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
+import app.domain.entities.AuthenticationInEntity
 import app.domain.entities.AuthenticationOutEntity
 
 @Serializable
@@ -15,7 +15,10 @@ data class AuthenticationInDto(
     val password: String
 )
 
-fun AuthenticationInDto.toEntity() = AuthenticationInEntity(email = email, password = password)
+fun AuthenticationInDto.toEntity() = AuthenticationInEntity(
+    email = email,
+    password = password
+)
 
 @Serializable
 data class AuthenticationOutDto(

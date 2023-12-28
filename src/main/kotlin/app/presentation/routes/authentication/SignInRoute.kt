@@ -10,7 +10,6 @@ import io.ktor.server.request.receive
 import io.ktor.server.application.call
 
 import app.application.dtos.toEntity
-import app.application.dtos.MessageOutDto
 import app.application.dtos.AuthenticationInDto
 import app.application.dtos.AuthenticationOutDto
 
@@ -24,25 +23,17 @@ fun Route.signInRoute() {
 
     post {
         val body = call.receive<AuthenticationInDto>()
-        val data = body.toEntity()
 
-        useCase(data).collect { response ->
-            when (response) {
-                is Result.Failure -> call.response(400, MessageOutDto(response.failure))
-                is Result.Success -> call.response(200, AuthenticationOutDto(response.success))
+        when (val data = body.toEntity()) {
+            is Result.Failure -> call.response(messages = data.failure)
+            is Result.Success -> {
+                useCase(data.success).collect { response ->
+                    when (response) {
+                        is Result.Failure -> call.response(400, response.failure)
+                        is Result.Success -> call.response(200, AuthenticationOutDto(response.success))
+                    }
+                }
             }
         }
-
-//        data.fold(
-//            { messages -> toFailure(messages) },
-//            { parameter ->
-//                useCase(parameter).collect { response ->
-//                    response.fold(
-//                        { failure -> call.response(400, MessageDto.toDto(failure)) },
-//                        { success -> call.response(201, UserDto.toDto(success)) }
-//                    )
-//                }
-//            }
-//        )
     }
 }

@@ -17,10 +17,19 @@ suspend inline fun <reified T : Any> ApplicationCall.response(statusCode: Int = 
     respond(Dto(status, adapter))
 }
 
-suspend inline fun ApplicationCall.response(statusCode: Int = 422, message: MessageOutDto) {
+suspend inline fun ApplicationCall.response(statusCode: Int = 400, message: String) {
     val (code, status) = handlerStatus(statusCode)
 
     response.status(code)
+
+    respond(Dto(status, MessageOutDto(message)))
+}
+
+suspend inline fun ApplicationCall.response(statusCode: Int = 422, messages: List<String>) {
+    val (code, status) = handlerStatus(statusCode)
+
+    response.status(code)
+    val message = messages.map { MessageOutDto(it) }
 
     respond(Dto(status, message))
 }
