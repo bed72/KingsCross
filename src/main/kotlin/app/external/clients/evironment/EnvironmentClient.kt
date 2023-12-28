@@ -13,11 +13,6 @@ interface EnvironmentClient {
     enum class Keys(val key: String) {
         SUPABASE_URL("SUPABASE_URL"),
         SUPABASE_KEY("SUPABASE_KEY"),
-
-        DATABASE_USER("DATABASE_USER"),
-        DATABASE_PASSWORD("DATABASE_PASSWORD"),
-        DATABASE_DRIVER("DATABASE_DRIVER"),
-        DATABASE_URL("DATABASE_URL");
     }
 }
 

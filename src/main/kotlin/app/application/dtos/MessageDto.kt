@@ -1,15 +1,16 @@
 package app.application.dtos
 
-import app.domain.entities.Message
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
+import app.domain.entities.MessageOutEntity
+
 @Serializable
-data class MessageDto(
+data class MessageOutDto(
     @SerialName("message")
     val message: String
 ) {
     companion object {
-        fun toDto(model: Message) = MessageDto(message = model.message)
+        operator fun invoke(data: MessageOutEntity) = MessageOutDto(message = data.message)
     }
 }

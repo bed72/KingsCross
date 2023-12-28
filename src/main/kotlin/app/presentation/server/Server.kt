@@ -11,8 +11,8 @@ import io.ktor.server.application.Application
 import io.ktor.server.plugins.cors.routing.CORS
 import io.ktor.server.plugins.contentnegotiation.ContentNegotiation
 
-import app.presentation.routes.user.userRoute
 import app.presentation.routes.health.healthCheckRoute
+import app.presentation.routes.authentication.signInRoute
 
 @OptIn(ExperimentalSerializationApi::class)
 fun Application.configureServer() {
@@ -37,8 +37,9 @@ fun Application.configureServer() {
         route("/") {
             healthCheckRoute()
         }
-        route("/v1") {
-            userRoute()
+
+        route("/v1/sign_in") {
+            signInRoute()
         }
     }
 }

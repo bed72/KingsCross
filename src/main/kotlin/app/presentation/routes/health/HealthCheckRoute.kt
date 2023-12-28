@@ -6,11 +6,12 @@ import io.ktor.server.routing.get
 import io.ktor.server.routing.Route
 import io.ktor.server.application.call
 
+import app.application.dtos.MessageOutDto
+
 import app.presentation.server.extensions.response
-import app.application.dtos.MessageDto
 
 fun Route.healthCheckRoute() {
     get {
-        call.response(HttpStatusCode.OK.value, MessageDto("king's Cross is UP."))
+        call.response(HttpStatusCode.OK.value, MessageOutDto("king's Cross is UP."))
     }
 }
