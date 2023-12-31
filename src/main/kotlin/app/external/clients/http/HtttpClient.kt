@@ -13,7 +13,6 @@ import io.ktor.http.HttpStatusCode
 import io.ktor.serialization.kotlinx.json.json
 
 import io.ktor.client.call.body
-import io.ktor.client.statement.HttpResponse
 
 import io.ktor.client.HttpClientConfig
 import io.ktor.client.HttpClient as KtorClient
@@ -38,7 +37,7 @@ import app.domain.results.Result
 import app.external.clients.evironment.EnvironmentClient
 
 interface HttpClient {
-    val ktor: KtorClient
+    val http: KtorClient
 }
 
 class HttpClientImpl(
@@ -57,7 +56,7 @@ class HttpClientImpl(
         ignoreUnknownKeys = true
     }
 
-    override val ktor get() = KtorClient(OkHttp) {
+    override val http get() = KtorClient(OkHttp) {
         configureLogging()
         configureRequestDefault()
         configureResponseTimeout()
@@ -127,11 +126,7 @@ suspend inline fun <reified S : Any, reified F : Any> KtorClient.request(
     close()
 
     return when (response.status) {
-        HttpStatusCode.OK, HttpStatusCode.Created -> success(response)
-        else -> failure(response)
+        HttpStatusCode.OK, HttpStatusCode.Created -> Result.Success(response.body<S>())
+        else -> Result.Failure(response.body<F>())
     }
 }
-
-suspend inline fun <reified F> failure(response: HttpResponse) = Result.Failure(response.body<F>())
-
-suspend inline fun <reified S> success(response: HttpResponse) = Result.Success(response.body<S>())

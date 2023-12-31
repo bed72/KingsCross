@@ -20,9 +20,9 @@ import app.external.clients.http.responses.AuthenticationResponse
 
 class AuthenticationRepositoryImpl(private val client: HttpClient) : AuthenticationRepository {
     override suspend fun signIn(parameter: AuthenticationInEntity): AuthenticationEntityType {
-        val response = client.ktor.request<AuthenticationResponse, MessageResponse> {
+        val response = client.http.request<AuthenticationResponse, MessageResponse> {
             method = HttpMethod.Post
-            url(SupabasePath.SIGN_UP.value)
+            url(SupabasePath.SIGN_IN.value)
             setBody(AuthenticationRequest(parameter))
         }
 
