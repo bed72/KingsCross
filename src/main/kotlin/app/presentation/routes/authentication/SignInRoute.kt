@@ -12,6 +12,7 @@ import io.ktor.server.application.call
 import app.application.dtos.toEntity
 import app.application.dtos.AuthenticationInDto
 import app.application.dtos.AuthenticationOutDto
+import app.application.dtos.MessageOutDto
 
 import app.presentation.server.extensions.response
 
@@ -29,7 +30,7 @@ fun Route.signInRoute() {
             is Result.Success -> {
                 useCase(data.success).collect { response ->
                     when (response) {
-                        is Result.Failure -> call.response(400, response.failure)
+                        is Result.Failure -> call.response(400, MessageOutDto(response.failure))
                         is Result.Success -> call.response(200, AuthenticationOutDto(response.success))
                     }
                 }

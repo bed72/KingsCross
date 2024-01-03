@@ -8,9 +8,16 @@ import app.domain.entities.MessageOutEntity
 @Serializable
 data class MessageOutDto(
     @SerialName("message")
-    val message: String
+    val message: String,
+
+    @SerialName("error")
+    val error: String? = null,
+
+    @SerialName("description")
+    val description: String? = null
 ) {
     companion object {
-        operator fun invoke(data: MessageOutEntity) = MessageOutDto(message = data.message)
+        operator fun invoke(data: MessageOutEntity) =
+            MessageOutDto(message = data.message, error = data.error, description = data.errorDescription)
     }
 }
