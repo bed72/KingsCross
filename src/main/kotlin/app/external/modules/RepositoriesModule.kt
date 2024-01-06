@@ -5,7 +5,7 @@ import org.koin.dsl.module
 import org.koin.core.module.dsl.factoryOf
 
 import app.domain.repositories.AuthenticationRepository
-import app.application.repositories.AuthenticationRepositoryImpl
+import app.data.repositories.AuthenticationRepositoryImpl
 
 val repositoryModule = module {
     factoryOf(::AuthenticationRepositoryImpl) bind AuthenticationRepository::class

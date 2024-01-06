@@ -1,8 +1,8 @@
 package app.domain.repositories
 
-import app.domain.entities.AuthenticationInEntity
-import app.domain.entities.AuthenticationEntityType
+import app.domain.models.AuthenticationType
+import app.domain.models.requests.AuthenticationRequestModel
 
 interface AuthenticationRepository {
-    suspend fun signIn(parameter: AuthenticationInEntity): AuthenticationEntityType
+    suspend fun signIn(parameter: AuthenticationRequestModel): AuthenticationType
 }

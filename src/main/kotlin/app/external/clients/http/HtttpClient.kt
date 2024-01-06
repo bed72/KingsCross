@@ -32,7 +32,7 @@ import io.ktor.client.plugins.logging.LogLevel
 import io.ktor.client.plugins.observer.ResponseObserver
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 
-import app.domain.results.Result
+import app.domain.models.ResultModel
 
 import app.external.clients.evironment.EnvironmentClient
 
@@ -120,13 +120,13 @@ class HttpClientImpl(
 
 suspend inline fun <reified S : Any, reified F : Any> KtorClient.request(
     block: HttpRequestBuilder.() -> Unit,
-): Result<S, F> {
+): ResultModel<S, F> {
     val response = request { block() }
 
     close()
 
     return when (response.status) {
-        HttpStatusCode.OK, HttpStatusCode.Created -> Result.Success(response.body<S>())
-        else -> Result.Failure(response.body<F>())
+        HttpStatusCode.OK, HttpStatusCode.Created -> ResultModel.Success(response.body<S>())
+        else -> ResultModel.Failure(response.body<F>())
     }
 }

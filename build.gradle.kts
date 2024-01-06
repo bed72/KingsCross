@@ -1,3 +1,5 @@
+import org.gradle.api.tasks.testing.logging.TestExceptionFormat.FULL
+
 val ktorVersion: String by project
 val koinVersion: String by project
 val kotlinVersion: String by project
@@ -47,7 +49,16 @@ dependencies {
 
     // Tests
     testImplementation("io.mockk:mockk:1.13.8")
-    testImplementation("io.ktor:ktor-server-tests-jvm:$ktorVersion")
+    testImplementation("io.ktor:ktor-server-test-host:$ktorVersion")
     testImplementation("org.junit.jupiter:junit-jupiter-engine:5.10.1")
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
+}
+
+tasks.withType<Test>().configureEach {
+    useJUnitPlatform()
+    testLogging {
+        exceptionFormat = FULL
+        showExceptions = true
+        showStandardStreams = true
+    }
 }

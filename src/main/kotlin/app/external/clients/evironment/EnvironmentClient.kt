@@ -13,6 +13,8 @@ interface EnvironmentClient {
     enum class Keys(val key: String) {
         SUPABASE_URL("SUPABASE_URL"),
         SUPABASE_KEY("SUPABASE_KEY"),
+        SUPABASE_TEST_EMAIL("SUPABASE_TEST_EMAIL"),
+        SUPABASE_TEST_PASSWORD("SUPABASE_TEST_PASSWORD"),
     }
 }
 

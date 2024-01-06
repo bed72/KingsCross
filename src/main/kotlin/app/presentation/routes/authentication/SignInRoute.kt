@@ -1,7 +1,5 @@
 package app.presentation.routes.authentication
 
-import app.domain.results.Result
-
 import org.koin.ktor.ext.inject
 
 import io.ktor.server.routing.post
@@ -9,13 +7,13 @@ import io.ktor.server.routing.Route
 import io.ktor.server.request.receive
 import io.ktor.server.application.call
 
-import app.application.dtos.toEntity
-import app.application.dtos.AuthenticationInDto
-import app.application.dtos.AuthenticationOutDto
-import app.application.dtos.MessageOutDto
-
 import app.presentation.server.extensions.response
 
+import app.data.dtos.responses.toDto
+import app.data.dtos.requests.toModel
+import app.data.dtos.requests.AuthenticationRequestDto
+
+import app.domain.models.ResultModel
 import app.domain.usecases.authentication.SignInUseCase
 
 fun Route.signInRoute() {
@@ -23,15 +21,15 @@ fun Route.signInRoute() {
     val useCase by inject<SignInUseCase>()
 
     post {
-        val body = call.receive<AuthenticationInDto>()
+        val body = call.receive<AuthenticationRequestDto>()
 
-        when (val data = body.toEntity()) {
-            is Result.Failure -> call.response(messages = data.failure)
-            is Result.Success -> {
+        when (val data = body.toModel()) {
+            is ResultModel.Failure -> call.response(messages = data.failure)
+            is ResultModel.Success -> {
                 useCase(data.success).collect { response ->
                     when (response) {
-                        is Result.Failure -> call.response(400, MessageOutDto(response.failure))
-                        is Result.Success -> call.response(200, AuthenticationOutDto(response.success))
+                        is ResultModel.Failure -> call.response(400, response.failure.toDto())
+                        is ResultModel.Success -> call.response(200, response.success.toDto())
                     }
                 }
             }

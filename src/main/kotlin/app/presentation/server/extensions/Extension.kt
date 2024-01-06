@@ -5,9 +5,9 @@ import io.ktor.http.HttpStatusCode
 import io.ktor.server.response.respond
 import io.ktor.server.application.ApplicationCall
 
-import app.application.dtos.Dto
-import app.application.dtos.Status
-import app.application.dtos.MessageOutDto
+import app.data.dtos.Dto
+import app.data.dtos.Status
+import app.data.dtos.responses.MessageResponseDto
 
 suspend inline fun <reified T : Any> ApplicationCall.response(statusCode: Int = 200, adapter: T) {
     val (code, status) = handlerStatus(statusCode)
@@ -22,14 +22,14 @@ suspend inline fun ApplicationCall.response(statusCode: Int = 400, message: Stri
 
     response.status(code)
 
-    respond(Dto(status, MessageOutDto(message)))
+    respond(Dto(status, MessageResponseDto(message)))
 }
 
 suspend inline fun ApplicationCall.response(statusCode: Int = 422, messages: List<String>) {
     val (code, status) = handlerStatus(statusCode)
 
     response.status(code)
-    val message = messages.map { MessageOutDto(it) }
+    val message = messages.map { MessageResponseDto(it) }
 
     respond(Dto(status, message))
 }
